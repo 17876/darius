@@ -1,66 +1,25 @@
 from matter import MatterDatabase
-
-# Dash is a class for time-based objects
-class Dash:
-    def __init__(self, start, dur):
-        self.start = start
-        self.dur = dur
-
-
+from util import range_scale
+from dash import Dash, Layer
 
 
 db = MatterDatabase('materia.json')
-print(db._matters['otrivok_iz_filma'].subdiv)
+layer1 = Layer()
+piece_dur = 3600
 
+for matter_name, matter in db._matters.items():
+    counter = 1
+    matter_markers = matter.markers
+    matter_dur = matter.dur
 
+    for marker_label, matter_marker in matter_markers.items():
+        marker_start = matter_marker.start
+        marker_end = matter_marker.end
+        dash_start = range_scale(marker_start, 0, matter_dur, 0, piece_dur)
+        dash_name = '{:s}_{:02d}'.format(matter_name, counter)
+        dash_dur = marker_end - marker_start
+        dash_to_add = Dash(dash_name, dash_start, dash_dur)
+        layer1.add_dash(dash_to_add)
+        counter = counter + 1
 
-
-
-
-
-
-
-
-
-
-
-
-'''
-class TestClass:
-    def __init__(self, x):
-        self._x = x
-
-    @property
-    def x(self):
-        return self._x
-
-    @x.setter
-    def x(self, value):
-        self._x = value
-
-
-t = TestClass(1)
-print(t._x)
-
-print('setting attr to 2')
-t._x = 2
-
-print('printing attr')
-print(t._x)
-
-print('printing prop')
-print(t.x)
-
-print('setting prop to 3')
-t.x = 3
-print('printing prop')
-print(t.x)
-print('printing attr')
-print(t._x)
-
-'''
-
-
-
-
-
+print(layer1)
