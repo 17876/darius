@@ -21,8 +21,8 @@ class Layer:
             dash_dur = dash.dur
             print('=======================================')
             print('Dash Name:\t\t{}'.format(dash_name))
-            print('Dash Start:\t\t{}'.format(dash_start))
-            print('Dash Dur:\t\t{}'.format(dash_dur))
+            print('Dash Start:\t\t{:.02f}'.format(dash_start))
+            print('Dash Dur:\t\t{:.02f}'.format(dash_dur))
         print('=======================================')
 
     def __str__(self):

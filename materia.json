@@ -1,36 +1,34 @@
 {
-  "otrivok_iz_filma": {
-    "subdiv": [0, 10, 20, 30],
-    "dur": 100,
+  "Chayki": {
+    "dur": "0:21:09 smtp",
 
     "markers": {
 
-      "OIZ01": {
-        "start": 0,
-        "end": 10
+      "Chayki_01": {
+        "start": "0:0:0 smtp",
+        "end": "0:4:20 smtp"
       },
 
-      "OIZ02": {
-        "start": 11,
-        "end": 15.5
+      "Chayki_02": {
+        "start": "0:4:20 smtp",
+        "end": "0:21:09 smtp"
       }
     }
   },
 
-  "papa_drova": {
-    "subdiv": [0, 10, 20, 30],
-    "dur": 100,
+  "Test": {
+    "dur": "0:31:09 smtp",
 
     "markers": {
 
-      "PADRO01": {
-        "start": 0,
-        "end": 20
+      "Test_01": {
+        "start": "0:0:0 smtp",
+        "end": "0:5:20 smtp"
       },
 
-      "PADRO02": {
-        "start": 30,
-        "end": 40
+      "Test_02": {
+        "start": "0:5:20 smtp",
+        "end": "0:6:09 smtp"
       }
     }
   }

@@ -1,17 +1,24 @@
 import json
 
+# Marker class
 class Marker:
     def __init__(self, label, start, end=None):
         self.label = label
-        self.start = start
-        self.end = end
+        self.start = start # timecode
+        self.end = end # timecode
 
     def __str__(self):
         if self.end:
-            line = 'Marker: {:s}\nStart: {:.03f}\nEnd: {:.03f}\n'.format(self.label, self.start, self.end)
+            line = 'Marker: {}\nStart: {}\nEnd: {}\n'.format(self.label, self.start, self.end)
         else:
-            line = 'Marker: {:s}\nStart: {:.03f}\n'.format(self.label, self.start)
+            line = 'Marker: {}\nStart: {}\n'.format(self.label, self.start)
         return line
+
+# Video marker, time in smtp-format
+class VideoMarker(Marker):
+    def __init__(self, label, start, end=None, fps):
+        super().__init__(label, start, end)
+        self.fps = fps
 
 # Matter is the class for raw input materials like audios and videos
 class Matter:
@@ -26,7 +33,7 @@ class Matter:
 class MatterDatabase:
     def __init__(self, database_filename):
         self.database_filename = database_filename
-        self._matters = {}
+        self._matters = {} # here the matters are stored
 
         # Loading json to a dictionary
         with open(self.database_filename, 'r') as read_file:
@@ -37,10 +44,10 @@ class MatterDatabase:
             matter_dur = json_matter['dur']
             json_markers = json_matter['markers']
             matter_markers = {}
-
             for marker_key, json_marker in json_markers.items():
                 marker_start = json_marker['start']
                 marker_end = json_marker['end']
+                marker_type = json_marker['type']
                 matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
 
             self._matters[key] = self._create_matter(matter_name, matter_dur, matter_markers)

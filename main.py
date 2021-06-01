@@ -2,7 +2,6 @@ from matter import MatterDatabase
 from util import range_scale
 from dash import Dash, Layer
 
-
 db = MatterDatabase('materia.json')
 layer1 = Layer()
 piece_dur = 3600
