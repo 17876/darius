@@ -1,9 +1,11 @@
+from timecode import Timecode
+
 # Dash is a class for time-based objects
 class Dash:
-    def __init__(self, name, start, dur):
+    def __init__(self, name, start, end):
         self.name = name
-        self.start = start
-        self.dur = dur
+        self.start = start # timecode
+        self.end = end # timecode
 
 class Layer:
     def __init__(self):
@@ -17,12 +19,12 @@ class Layer:
     def _print(self):
         for key, dash in self._dashes.items():
             dash_name = key
-            dash_start = dash.start
-            dash_dur = dash.dur
+            dash_start = dash.start # timecode
+            dash_end = dash.end # timecode
             print('=======================================')
             print('Dash Name:\t\t{}'.format(dash_name))
-            print('Dash Start:\t\t{:.02f}'.format(dash_start))
-            print('Dash Dur:\t\t{:.02f}'.format(dash_dur))
+            print('Dash Start:\t\t{:s}'.format(dash_start.__str__()))
+            print('Dash Dur:\t\t{:s}'.format(dash_end.__str__()))
         print('=======================================')
 
     def __str__(self):

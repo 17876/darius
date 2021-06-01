@@ -7,7 +7,7 @@ class Timecode:
             self._fr = fr
         self.format()
         self._seconds = None
-        self.seconds()
+        self.call_seconds()
 
     @property
     def timecode(self):
@@ -18,7 +18,7 @@ class Timecode:
         self._timecode = val
         self.units_extractor()
         self.format()
-        self.seconds()
+        self.call_seconds()
 
     @property
     def fr(self):
@@ -27,7 +27,7 @@ class Timecode:
     @fr.setter
     def fr(self, val):
         self._fr = val
-        self.seconds()
+        self.call_seconds()
 
     def units_extractor(self):
         if self._timecode[-1] == 'f':
@@ -63,7 +63,7 @@ class Timecode:
             ss = float(tc_split[2])
             self._timecode = '{:02d}:{:02d}:{:.03f}'.format(hh, mm, ss)
 
-    def seconds(self):
+    def call_seconds(self):
         self.format()
         tc_split = [float(i) for i in self._timecode.split(':')]
         if self._units == 'smpte': # smpte -> sec
