@@ -1,10 +1,10 @@
 class Timecode:
-    def __init__(self, timecode, fps=None):
+    def __init__(self, timecode, fr=None):
         self._timecode = timecode # string hh:mm:ss.sss in hms-format, hh:mm:ss:fff with f at the end in smpte-format
         self._units = None
         self.units_extractor()
-        if fps: # float
-            self._fps = fps
+        if fr: # float
+            self._fr = fr
         self.format()
         self._seconds = None
         self.seconds()
@@ -21,12 +21,12 @@ class Timecode:
         self.seconds()
 
     @property
-    def fps(self):
-        return self._fps
+    def fr(self):
+        return self._fr
 
-    @fps.setter
-    def fps(self, val):
-        self._fps = val
+    @fr.setter
+    def fr(self, val):
+        self._fr = val
         self.seconds()
 
     def units_extractor(self):
@@ -34,6 +34,7 @@ class Timecode:
             self._units = 'smpte'
         else:
             self._units = 'hms'
+        return self._units
 
     def format(self):
         if self._units == 'smpte':
@@ -70,7 +71,7 @@ class Timecode:
             mm = tc_split[1]
             ss = tc_split[2]
             ff = tc_split[3]
-            secs = round(((hh * 60) + mm) * 60 + ss + ff * (1/self._fps), 3)
+            secs = round(((hh * 60) + mm) * 60 + ss + ff * (1/self._fr), 3)
         else: # hms -> secs
             hh = tc_split[0]
             mm = tc_split[1]
@@ -93,6 +94,13 @@ class Timecode:
             mm = int(secs_without_whole_hours / 60)  # 13
             secs_without_whole_hours_minutes = secs_without_whole_hours % 60  # 59.5
             ss = int(secs_without_whole_hours_minutes) # 59
-            ff = round((secs_without_whole_hours_minutes - ss) * self._fps)
+            ff = round((secs_without_whole_hours_minutes - ss) * self._fr)
             self.timecode = '{:02d}:{:02d}:{:02d}:{:02d}f'.format(hh, mm, ss, ff)
+
+    def __str__(self):
+        if self._units == 'smpte':
+            line = '{:s}, fr: {:.02f} fps'.format(self._timecode, self._fr)
+        else:
+            line = '{:s}'.format(self._timecode)
+        return line
 

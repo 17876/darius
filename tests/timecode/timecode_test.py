@@ -13,8 +13,11 @@ print('')
 tc.mutate()
 print(tc.timecode)
 print(tc._seconds)
+print(tc)
 print('')
 
 tc.mutate()
 print(tc.timecode)
 print(tc._seconds)
+
+print(tc)

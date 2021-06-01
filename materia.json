@@ -1,34 +1,38 @@
 {
   "Chayki": {
-    "dur": "0:21:09 smtp",
+    "type": "v",
+    "dur": "0:21:09f",
+    "fr": 25,
 
     "markers": {
 
       "Chayki_01": {
-        "start": "0:0:0 smtp",
-        "end": "0:4:20 smtp"
+        "start": "0:0:0f",
+        "end": "0:4:20f"
       },
 
       "Chayki_02": {
-        "start": "0:4:20 smtp",
-        "end": "0:21:09 smtp"
+        "start": "0:4:20f",
+        "end": "0:21:09f"
       }
     }
   },
 
   "Test": {
-    "dur": "0:31:09 smtp",
+    "type": "v",
+    "dur": "0:31:09f",
+    "fr": 25,
 
     "markers": {
 
       "Test_01": {
-        "start": "0:0:0 smtp",
-        "end": "0:5:20 smtp"
+        "start": "0:0:0f",
+        "end": "0:5:20f"
       },
 
       "Test_02": {
-        "start": "0:5:20 smtp",
-        "end": "0:6:09 smtp"
+        "start": "0:5:20f",
+        "end": "0:6:09f"
       }
     }
   }
