@@ -5,19 +5,19 @@ print(tc.timecode)
 print(tc._seconds)
 print('')
 
-tc.fps = 30
-print(tc.timecode)
-print(tc._seconds)
-print('')
-
-tc.mutate()
-print(tc.timecode)
-print(tc._seconds)
-print(tc)
-print('')
-
-tc.mutate()
-print(tc.timecode)
-print(tc._seconds)
-
-print(tc)
+# tc.fps = 30
+# print(tc.timecode)
+# print(tc._seconds)
+# print('')
+#
+# tc.mutate()
+# print(tc.timecode)
+# print(tc._seconds)
+# print(tc)
+# print('')
+#
+# tc.mutate()
+# print(tc.timecode)
+# print(tc._seconds)
+#
+# print(tc)

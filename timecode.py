@@ -6,6 +6,7 @@ class Timecode:
         if fr: # float
             self._fr = fr
         self.format()
+
         self._seconds = None
         self.call_seconds()
 

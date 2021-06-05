@@ -7,6 +7,10 @@ class Dash:
         self.start = start # timecode
         self.end = end # timecode
 
+    def __str__(self):
+        line = 'Name: {:s}, Start: {:s}, End: {:s}'.format(self.name, self.start.__str__(), self.end.__str__())
+        return line
+
 class Layer:
     def __init__(self):
         self._dashes = {}

@@ -1,4 +1,33 @@
 {
+  "Chayki": {
+    "type": "v",
+    "dur": "0:21:09f",
+    "fr": 25,
+
+    "markers": {
+
+      "Chayki_01": {
+        "start": "0:0:0f",
+        "end": "0:4:20f"
+      },
+
+      "Chayki_02": {
+        "start": "0:4:20f",
+        "end": "0:7:12f"
+      },
+
+      "Chayki_03": {
+        "start": "0:7:12f",
+        "end": "0:8:04f"
+      },
+
+      "Chayki_04": {
+        "start": "0:8:04f",
+        "end": "0:21:09f"
+      }
+    }
+  },
+
   "Otrivok_iz_Filma": {
     "type": "v",
     "dur": "3:12:13f",
