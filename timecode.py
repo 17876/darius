@@ -6,7 +6,6 @@ class Timecode:
         if fr: # float
             self._fr = fr
         self.format()
-
         self._seconds = None
         self.call_seconds()
 
@@ -30,14 +29,14 @@ class Timecode:
         self._fr = val
         self.call_seconds()
 
-    def units_extractor(self):
+    def units_extractor(self): # checks if the timecode string has f at the end - then smpte
         if self._timecode[-1] == 'f':
             self._units = 'smpte'
         else:
             self._units = 'hms'
         return self._units
 
-    def format(self):
+    def format(self): # formats timecode to hh:mm:ss:ff or hh:mm:ss.ms
         if self._units == 'smpte':
             tc_no_f = ''
             for i in self._timecode:
@@ -45,7 +44,7 @@ class Timecode:
                     tc_no_f = tc_no_f + i
             tc_split = tc_no_f.split(':')
             tc_len = len(tc_split)
-            if tc_len < 4:  # check if it's in format hhmmssff
+            if tc_len < 4:  # checck if i.e. hh and/or mm missing, just for example ss:ff there.
                 for i in range(4 - tc_len):
                     tc_split.insert(0, 0)
             hh = int(tc_split[0])
@@ -56,7 +55,7 @@ class Timecode:
         else:
             tc_split = self._timecode.split(':')
             tc_len = len(tc_split)
-            if tc_len < 3:  # check if it's in format hms
+            if tc_len < 3:  # checck if i.e. hh and/or mm missing
                 for i in range(3 - tc_len):
                     tc_split.insert(0, 0)
             hh = int(tc_split[0])
@@ -64,7 +63,7 @@ class Timecode:
             ss = float(tc_split[2])
             self._timecode = '{:02d}:{:02d}:{:.03f}'.format(hh, mm, ss)
 
-    def call_seconds(self):
+    def call_seconds(self): # calculates seconds
         self.format()
         tc_split = [float(i) for i in self._timecode.split(':')]
         if self._units == 'smpte': # smpte -> sec

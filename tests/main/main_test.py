@@ -10,7 +10,6 @@ projection_start_tc = Timecode('00:12:41:05f', 25)
 projection_end_tc = Timecode('01:06:05:01f', 25)
 projection_dur_sec = projection_end_tc._seconds - projection_start_tc._seconds
 
-
 projection_dur_tc = Timecode(secs_to_timecode(projection_dur_sec, 'smpte', 25), 25)
 
 for matter_name, matter in db._matters.items():
