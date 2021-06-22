@@ -1,7 +1,9 @@
 {
   "Chayki": {
     "type": "v",
-    "dur": "0:21:09f",
+    "filepath": "file://localhost/Volumes/work_01/PROJECTS/Poem%2045176/Videos/VHS/Chayki.mp4",
+    "in": "0:0:0f",
+    "out": "0:21:09f",
     "fr": 25,
 
     "markers": {
@@ -14,25 +16,6 @@
       "Chayki_02": {
         "start": "0:4:20f",
         "end": "0:21:09f"
-      }
-    }
-  },
-
-  "Test": {
-    "type": "v",
-    "dur": "0:31:09f",
-    "fr": 25,
-
-    "markers": {
-
-      "Test_01": {
-        "start": "0:0:0f",
-        "end": "0:5:20f"
-      },
-
-      "Test_02": {
-        "start": "0:5:20f",
-        "end": "0:6:09f"
       }
     }
   }

@@ -1,5 +1,5 @@
 import json
-from timecode import Timecode
+from tc import Tc
 
 # Marker class
 class Marker:
@@ -17,17 +17,38 @@ class Marker:
 
 # Matter is the class for raw input materials like audios and videos
 class Matter:
-    def __init__(self, name, dur, markers=None):
+    def __init__(self, name, filepath, filename, filedur, _in, _out, markers=None):
         self.name = name
-        self.dur = dur # timecode
-        # markers is a dict
-        if markers:
-            self.markers = markers
+        self.filepath = filepath
+        self.filename = filename
+        self.filedur = filedur
+        self._in = _in # timecode, where to look in the file
+        self._out = _out # timecode, where to look in the file
+        self.markers = markers # dict
 
 class VideoMatter(Matter):
-    def __init__(self, name, dur, fr, markers=None):
-        super().__init__(name, dur, markers)
+    def __init__(self, name, filepath, filename, filedur, _in, _out, fr, markers=None):
+        super().__init__(name, filepath, filename, filedur, _in, _out, markers)
         self._fr = fr
+
+    def _print(self):
+        print('Video Matter: {}'.format(self.name))
+        print('Filepath: {}'.format(self.filepath))
+        print('Filename: {}'.format(self.filename))
+        print('Filedur: {}'.format(self.filedur))
+        print('In: {}'.format(self._in))
+        print('Out: {}'.format(self._out))
+        print('Frame Rate: {}'.format(self._fr))
+        if self.markers:
+            print('Markers: {}'.format(self.markers))
+
+    def __str__(self):
+        self._print()
+        return 'Matter Print Done'
+
+class AudioMatter(Matter):
+    def __init__(self, name, filepath, filename, filedur, _in, _out, markers=None):
+        super().__init__(name, filepath, filename, filedur, _in, _out, markers)
 
 # Loads and stores matters
 class MatterDatabase:
@@ -43,46 +64,71 @@ class MatterDatabase:
         for key, json_matter in json_matters.items():
             matter_name = key
             json_matter_type = json_matter['type']
-            json_matter_dur = json_matter['dur']
+            json_matter_filepath = json_matter['filepath']
+            json_matter_filename = json_matter['filename']
+            json_matter_filedur = json_matter['filedur']
+            json_matter_in = json_matter['in']
+            json_matter_out = json_matter['out']
+            json_markers = json_matter['markers']
+
+            matter_filepath = json_matter_filepath
+            matter_filename = json_matter_filename
+
             if json_matter_type == 'v':
                 json_matter_fr = json_matter['fr']
-                matter_dur = Timecode(json_matter_dur, json_matter_fr)
+                matter_in = Tc(json_matter_in, json_matter_fr)
+                matter_out = Tc(json_matter_out, json_matter_fr)
+                matter_filedur = Tc(json_matter_filedur, json_matter_fr)
+
+                # markers
+                matter_markers = {}
+                for marker_key, json_marker in json_markers.items():
+                    json_marker_start = json_marker['start']
+                    json_marker_end = json_marker['end']
+                    marker_start = Tc(json_marker_start, json_matter_fr)
+                    marker_end = Tc(json_marker_end, json_matter_fr)
+                    matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
+
+                cur_matter = self._create_video_matter(matter_name, matter_filepath, matter_filename,
+                                                       matter_filedur, matter_in, matter_out,
+                                                       json_matter_fr, matter_markers)
+
             else:
-                matter_dur = Timecode(json_matter_dur)
-            json_markers = json_matter['markers']
-            matter_markers = {}
-            for marker_key, json_marker in json_markers.items():
-                json_marker_start = json_marker['start']
-                json_marker_end = json_marker['end']
-                if json_matter_type == 'v':
-                    marker_start = Timecode(json_marker_start, json_matter_fr)
-                    marker_end = Timecode(json_marker_end, json_matter_fr)
-                else:
-                    marker_start = Timecode(json_marker_start)
-                    marker_end = Timecode(json_marker_end)
-                matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
+                matter_in = Tc(json_matter_in)
+                matter_out = Tc(json_matter_out)
+                matter_filedur = Tc(json_matter_filedur)
 
-            self._matters[matter_name] = self._create_video_matter(matter_name, matter_dur, json_matter_fr,
-                                                                   matter_markers)
+                # markers
+                matter_markers = {}
+                for marker_key, json_marker in json_markers.items():
+                    json_marker_start = json_marker['start']
+                    json_marker_end = json_marker['end']
+                    marker_start = Tc(json_marker_start)
+                    marker_end = Tc(json_marker_end)
+                    matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
 
-    def _create_video_matter(self, name, dur, fr, markers):
-            return VideoMatter(name, dur, fr, markers)
+                cur_matter = self._create_audio_matter(matter_name, matter_filepath, matter_filename,
+                                                       matter_filedur, matter_in, matter_out,
+                                                       matter_markers)
+            self._matters[matter_name] = cur_matter
+
+    def _create_video_matter(self, name, matter_filepath, matter_filename, matter_filedur, matter_in,
+                             matter_out, fr, markers):
+            return VideoMatter(name, matter_filepath, matter_filename, matter_filedur, matter_in,
+                               matter_out, fr, markers)
+
+    def _create_audio_matter(self, name, matter_filepath, matter_filename, matter_filedur, matter_in,
+                             matter_out, markers):
+        return VideoMatter(name, matter_filepath, matter_filename,
+                           matter_filedur, matter_in, matter_out, markers)
 
     def _print(self):
         print('=======================================')
         print('Matter Database: {:s}'.format(self._database_name))
         for key, matter in self._matters.items():
-            matter_name = key
-            matter_dur = matter.dur # timecode
-            matter_markers = matter.markers # dict of objects
-            print('=======================================')
-            print('Name:\t\t{}'.format(matter_name))
-            print('Dur:\t\t{:s}'.format(matter_dur.__str__()))
-            print('\nMarkers:\n')
-            for marker_key, marker in matter_markers.items():
-                print(marker)
+            print(matter)
         print('=======================================')
 
     def __str__(self):
         self._print()
-        return 'Print Done'
+        return 'Matter Database Print Done'

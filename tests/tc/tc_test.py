@@ -1,8 +1,9 @@
-from timecode import Timecode
+from tc import Tc
 
-tc = Timecode('0:12:12f', 25)
-print(tc.timecode)
-print(tc._seconds)
+t = Tc('0:12:12f', 25)
+print(t.hmsf)
+print(t._seconds)
+print(t)
 print('')
 
 # tc.fps = 30

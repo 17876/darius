@@ -1,18 +1,25 @@
-from timecode import Timecode
-
 # Dash is a class for time-based objects
 class Dash:
-    def __init__(self, name, start, end):
+    def __init__(self, name, start, end, content):
         self.name = name
-        self.start = start # timecode
-        self.end = end # timecode
+        self.start = start # timecode in layer
+        self.end = end # timecode in layer
+        self.content = content # matter
+
+    def _print(self):
+        print('Dash Name: {}'.format(self.name))
+        print('Dash Start: {}'.format(self.start))
+        print('Dash End: {}'.format(self.end))
+        print('Dash Content:')
+        print(self.content)
 
     def __str__(self):
-        line = 'Name: {:s}, Start: {:s}, End: {:s}'.format(self.name, self.start.__str__(), self.end.__str__())
-        return line
+        self._print()
+        return 'Dash Print Done'
 
 class Layer:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self._dashes = {}
 
     def add_dash(self, *args):
@@ -21,6 +28,8 @@ class Layer:
             self._dashes[name] = arg
 
     def _print(self):
+        print('=======================================')
+        print('Layer Name:\t\t{}'.format(self.name))
         for key, dash in self._dashes.items():
             dash_name = key
             dash_start = dash.start # timecode
@@ -33,4 +42,4 @@ class Layer:
 
     def __str__(self):
         self._print()
-        return 'Print Done'
+        return 'Layer Print Done'
