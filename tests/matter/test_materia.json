@@ -1,7 +1,9 @@
 {
   "Chayki": {
     "type": "v",
-    "filepath": "file://localhost/Volumes/work_01/PROJECTS/Poem%2045176/Videos/VHS/Chayki.mp4",
+    "filepath": "file://localhost/Volumes/work_01/PROJECTS/Poem%2045176/Videos/VHS/",
+    "filename": "Chayki.mp4",
+    "filedur": "0:21:09f",
     "in": "0:0:0f",
     "out": "0:21:09f",
     "fr": 25,

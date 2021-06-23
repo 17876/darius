@@ -40,7 +40,9 @@ class VideoMatter(Matter):
         print('Out: {}'.format(self._out))
         print('Frame Rate: {}'.format(self._fr))
         if self.markers:
-            print('Markers: {}'.format(self.markers))
+            print('\nMarkers:')
+            for key, val in self.markers.items():
+                print(val)
 
     def __str__(self):
         self._print()
@@ -127,7 +129,6 @@ class MatterDatabase:
         print('Matter Database: {:s}'.format(self._database_name))
         for key, matter in self._matters.items():
             print(matter)
-        print('=======================================')
 
     def __str__(self):
         self._print()

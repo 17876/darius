@@ -21,6 +21,7 @@ class Tc:
         self.units_extractor()
         self.format()
         self.call_seconds()
+        self.call_frames()
 
     @property
     def fr(self):
@@ -30,6 +31,7 @@ class Tc:
     def fr(self, val):
         self._fr = val
         self.call_seconds()
+        self.call_frames()
 
     def units_extractor(self): # checks if the hmsf string has f at the end - then smpte
         if self._hmsf[-1] == 'f':
@@ -75,11 +77,10 @@ class Tc:
             ff = hmsf_split[3]
             secs = round(((hh * 60) + mm) * 60 + ss + ff * (1/self._fr), 3)
         else: # hms -> secs
-            if self._fr:
-                hh = hmsf_split[0]
-                mm = hmsf_split[1]
-                ss = hmsf_split[2]
-                secs = round(((hh * 60) + mm) * 60 + ss, 3)
+            hh = hmsf_split[0]
+            mm = hmsf_split[1]
+            ss = hmsf_split[2]
+            secs = round(((hh * 60) + mm) * 60 + ss, 3)
         self._seconds = secs
         return self._seconds
 
@@ -92,16 +93,10 @@ class Tc:
             ss = hmsf_split[2]
             ff = hmsf_split[3]
             frames = ((hh * 3600) + (mm * 60) + ss) * self._fr + ff
-        else: # hms -> frames
-            hh = hmsf_split[0]
-            mm = hmsf_split[1]
-            ss = hmsf_split[2]
-            secs = ((hh * 60) + mm) * 60 + ss
-            frames = round(secs * self._fr)
-        self._frames = frames
-        return self._frames
+            self._frames = frames
+            return self._frames
 
-    def mutate(self): # 3839.5
+    def mutate(self, fr=None): # 3839.5
         if self._units == 'smpte':  # smpte -> hms
             hh = int(self._seconds / 3600) # 1
             secs_without_whole_hours = self._seconds % 3600 # 839.5
@@ -110,6 +105,7 @@ class Tc:
             ss = secs_without_whole_hours_minutes
             self.hmsf = '{:02d}:{:02d}:{:.03f}'.format(hh, mm, ss)
         else: # hms -> smpte (hhmmssff)
+            self._fr = fr
             hh = int(self._seconds / 3600)  # 1
             secs_without_whole_hours = self._seconds % 3600  # 839.5
             mm = int(secs_without_whole_hours / 60)  # 13
