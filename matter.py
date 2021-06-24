@@ -1,5 +1,5 @@
 import json
-from tc import Tc
+from dash.tc import Tc
 
 # Marker class
 class Marker:
@@ -78,17 +78,17 @@ class MatterDatabase:
 
             if json_matter_type == 'v':
                 json_matter_fr = json_matter['fr']
-                matter_in = Tc(json_matter_in, json_matter_fr)
-                matter_out = Tc(json_matter_out, json_matter_fr)
-                matter_filedur = Tc(json_matter_filedur, json_matter_fr)
+                matter_in = Tc(json_matter_in, 'smpte', json_matter_fr)
+                matter_out = Tc(json_matter_out, 'smpte', json_matter_fr)
+                matter_filedur = Tc(json_matter_filedur, 'smpte', json_matter_fr)
 
                 # markers
                 matter_markers = {}
                 for marker_key, json_marker in json_markers.items():
                     json_marker_start = json_marker['start']
                     json_marker_end = json_marker['end']
-                    marker_start = Tc(json_marker_start, json_matter_fr)
-                    marker_end = Tc(json_marker_end, json_matter_fr)
+                    marker_start = Tc(json_marker_start, 'smpte', json_matter_fr)
+                    marker_end = Tc(json_marker_end, 'smpte', json_matter_fr)
                     matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
 
                 cur_matter = self._create_video_matter(matter_name, matter_filepath, matter_filename,
@@ -96,17 +96,17 @@ class MatterDatabase:
                                                        json_matter_fr, matter_markers)
 
             else:
-                matter_in = Tc(json_matter_in)
-                matter_out = Tc(json_matter_out)
-                matter_filedur = Tc(json_matter_filedur)
+                matter_in = Tc(json_matter_in, 'hms')
+                matter_out = Tc(json_matter_out, 'hms')
+                matter_filedur = Tc(json_matter_filedur, 'hms')
 
                 # markers
                 matter_markers = {}
                 for marker_key, json_marker in json_markers.items():
                     json_marker_start = json_marker['start']
                     json_marker_end = json_marker['end']
-                    marker_start = Tc(json_marker_start)
-                    marker_end = Tc(json_marker_end)
+                    marker_start = Tc(json_marker_start, 'hms')
+                    marker_end = Tc(json_marker_end, 'hms')
                     matter_markers[marker_key] = Marker(marker_key, marker_start, marker_end)
 
                 cur_matter = self._create_audio_matter(matter_name, matter_filepath, matter_filename,
