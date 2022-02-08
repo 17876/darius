@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name="dash",
+    name="darius",
     version="1.0",
     author="Anton Wassiljew",
     author_email="anton@hwassiljew.online",

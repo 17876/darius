@@ -3,21 +3,22 @@
     "type": "v",
     "filepath": "file://localhost/Volumes/work_01/PROJECTS/Poem%2045176/Videos/VHS/",
     "filename": "Chayki.mp4",
-    "filedur": "0:21:09f",
-    "in": "0:0:0f",
-    "out": "0:21:09f",
+    "filedur": "0:21:09",
+    "in": "0:0:0",
+    "out": "0:21:09",
+    "units": "smpte",
     "fr": 25,
 
     "markers": {
 
       "Chayki_01": {
-        "start": "0:0:0f",
-        "end": "0:4:20f"
+        "start": "0:0:0",
+        "end": "0:4:20"
       },
 
       "Chayki_02": {
-        "start": "0:4:20f",
-        "end": "0:21:09f"
+        "start": "0:4:20",
+        "end": "0:21:09"
       }
     }
   }

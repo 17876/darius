@@ -1,5 +1,5 @@
 import json
-from dash.tc import Tc
+from darius.tc import Tc
 
 # Marker class
 class Marker:
