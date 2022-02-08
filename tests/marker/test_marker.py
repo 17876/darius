@@ -1,6 +1,6 @@
 import unittest
-from matter import Marker
-from tc import Tc
+from dash.matter import Marker
+from dash.tc import Tc
 
 class TestMarker(unittest.TestCase):
     def test_1(self):

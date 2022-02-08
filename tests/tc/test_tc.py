@@ -1,5 +1,5 @@
 import unittest
-from tc import Tc
+from dash.tc import Tc
 
 class TestTc(unittest.TestCase):
     def test_units(self):

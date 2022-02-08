@@ -1,5 +1,5 @@
 import unittest
-from matter import MatterDatabase
+from dash.matter import MatterDatabase
 
 class TestMatter(unittest.TestCase):
     def test_1(self):
