@@ -76,6 +76,12 @@ class Tc:
             frames_ = ((hh * 3600) + (mm * 60) + ss) * self.fr + ff
             return frames_
 
+    def __add__(self, other):
+        if self.units == other.units:
+            result_secs = self.seconds + other.seconds
+
+
+
     def __str__(self):
         if self.units == 'smpte':
             line = '{:s}, fr: {:.02f} fps'.format(self.hmsf, self.fr)
