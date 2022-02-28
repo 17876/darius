@@ -1,4 +1,4 @@
-from darius.tc import Tc
+# from darius.tc import Tc
 
 def range_scale(x, x1, x2, y1, y2):
     return (y2-y1)*(x - x1)/(x2 - x1) + y1
@@ -36,26 +36,26 @@ def secs_to_tc(secs, units, fr=None):
         tc =  '{:02d}:{:02d}:{:02d}:{:02d}'.format(hh, mm, ss, ff)
     return tc
 
-def add_tc(tc1, tc2, fr=None):
-    sec1 = tc1.seconds
-    sec2 = tc2.seconds
-    output_sec = sec1 + sec2
-    if fr: # smpte
-        hmsf = secs_to_tc(output_sec, 'smpte', fr)
-        output = Tc(hmsf, 'smpte', fr)
-    else:
-        hmsf = secs_to_tc(output_sec, 'hms')
-        output = Tc(hmsf, 'hms')
-    return output
-
-def subtr_tc(tc1, tc2, fr=None):
-    sec1 = tc1.seconds
-    sec2 = tc2.seconds
-    output_sec = sec1 - sec2
-    if fr: # smpte
-        hmsf = secs_to_tc(output_sec, 'smpte', fr)
-        output = Tc(hmsf, 'smpte', fr)
-    else:
-        hmsf = secs_to_tc(output_sec, 'hms')
-        output = Tc(hmsf, 'hms')
-    return output
+# def add_tc(tc1, tc2, fr=None):
+#     sec1 = tc1.seconds
+#     sec2 = tc2.seconds
+#     output_sec = sec1 + sec2
+#     if fr: # smpte
+#         hmsf = secs_to_tc(output_sec, 'smpte', fr)
+#         output = Tc(hmsf, 'smpte', fr)
+#     else:
+#         hmsf = secs_to_tc(output_sec, 'hms')
+#         output = Tc(hmsf, 'hms')
+#     return output
+#
+# def subtr_tc(tc1, tc2, fr=None):
+#     sec1 = tc1.seconds
+#     sec2 = tc2.seconds
+#     output_sec = sec1 - sec2
+#     if fr: # smpte
+#         hmsf = secs_to_tc(output_sec, 'smpte', fr)
+#         output = Tc(hmsf, 'smpte', fr)
+#     else:
+#         hmsf = secs_to_tc(output_sec, 'hms')
+#         output = Tc(hmsf, 'hms')
+#     return output

@@ -1,3 +1,5 @@
+from darius.util import secs_to_tc
+
 class Tc:
     def __init__(self, hmsf, units, fr=None):
         self._units = units
@@ -76,11 +78,22 @@ class Tc:
             frames_ = ((hh * 3600) + (mm * 60) + ss) * self.fr + ff
             return frames_
 
+    def __eq__(self, other):
+        if self.seconds == other.seconds and self.fr == other.fr and self.units == other.units:
+            return True
+        else:
+            return False
+
     def __add__(self, other):
-        if self.units == other.units:
-            result_secs = self.seconds + other.seconds
-
-
+        sec1 = self.seconds
+        sec2 = other.seconds
+        output_sec = sec1 + sec2
+        if self.units == other.units and self.fr == other.fr:
+            hmsf = secs_to_tc(output_sec, 'smpte', self.fr)
+            output = Tc(hmsf, 'smpte', self.fr)
+            return output
+        else:
+            print('Cannot add')
 
     def __str__(self):
         if self.units == 'smpte':
