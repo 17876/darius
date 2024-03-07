@@ -76,49 +76,56 @@ class TestTc(unittest.TestCase):
         result_frames = tc_tc.frames
         expected_frames = 338
         self.assertEqual(result_frames, expected_frames)
-    #
-    # def test_eq_1(self):
-    #     hmsf_human_1 = '0:1:12'
-    #     hmsf_human_2 = '0:1:12'
-    #     units = 'smpte'
-    #     tc_1 = Tc(hmsf_human_1, units, 25)
-    #     tc_2 = Tc(hmsf_human_2, units, 25)
-    #     result = (tc_1 == tc_2)
-    #     expected = True
-    #     self.assertEqual(result, expected)
-    #
-    # def test_eq_2(self):
-    #     hmsf_human_1 = '0:1:12'
-    #     hmsf_human_2 = '0:1:2'
-    #     units = 'smpte'
-    #     tc_1 = Tc(hmsf_human_1, units, 25)
-    #     tc_2 = Tc(hmsf_human_2, units, 25)
-    #     result = (tc_1 == tc_2)
-    #     expected = False
-    #     self.assertEqual(result, expected)
-    #
-    #
-    # def test_add_1(self):
-    #     hmsf_human_1 = '0:1:12'
-    #     hmsf_human_2 = '0:1:11'
-    #     units = 'smpte'
-    #     tc_1 = Tc(hmsf_human_1, units, 25)
-    #     tc_2 = Tc(hmsf_human_2, units, 25)
-    #     result = tc_1 + tc_2
-    #     expected = Tc('0:2:23', units, 25)
-    #     print(result)
-    #     self.assertEqual(result, expected)
-    #
-    # def test_add_2(self):
-    #     hmsf_human_1 = '0:1:12'
-    #     hmsf_human_2 = '0:1:13'
-    #     units = 'smpte'
-    #     tc_1 = Tc(hmsf_human_1, units, 25)
-    #     tc_2 = Tc(hmsf_human_2, units, 25)
-    #     result = tc_1 + tc_2
-    #     expected = Tc('0:3:0', units, 25)
-    #     print(result)
-    #     self.assertEqual(result, expected)
+
+    def test_eq_1(self):
+        hmsf_human_1 = '0:1:12'
+        hmsf_human_2 = '0:1:12'
+        units = 'smpte'
+        tc_1 = Tc(hmsf_human_1, units, 25)
+        tc_2 = Tc(hmsf_human_2, units, 25)
+        result = (tc_1 == tc_2)
+        expected = True
+        self.assertEqual(result, expected)
+
+    def test_eq_2(self):
+        hmsf_human_1 = '0:1:12'
+        hmsf_human_2 = '0:1:2'
+        units = 'smpte'
+        tc_1 = Tc(hmsf_human_1, units, 25)
+        tc_2 = Tc(hmsf_human_2, units, 25)
+        result = (tc_1 == tc_2)
+        expected = False
+        self.assertEqual(result, expected)
+
+    def test_add_1(self):
+        hmsf_human_1 = '0:1:12'
+        hmsf_human_2 = '0:1:11'
+        units = 'smpte'
+        tc_1 = Tc(hmsf_human_1, units, 25)
+        tc_2 = Tc(hmsf_human_2, units, 25)
+        result = tc_1 + tc_2
+        expected = Tc('0:2:23', units, 25)
+        self.assertEqual(result, expected)
+
+    def test_add_2(self):
+        hmsf_human_1 = '0:1:12'
+        hmsf_human_2 = '0:1:13'
+        units = 'smpte'
+        tc_1 = Tc(hmsf_human_1, units, 25)
+        tc_2 = Tc(hmsf_human_2, units, 25)
+        result = tc_1 + tc_2
+        expected = Tc('0:3:0', units, 25)
+        self.assertEqual(result, expected)
+
+    def test_multiply(self):
+        timecode = '0:1:12'
+        number = 2.5
+        units = 'hms'
+        tc = Tc(timecode, units)
+        result = tc * number
+        expected = Tc('0:3:00', units)
+        print(result)
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':

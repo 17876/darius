@@ -99,9 +99,20 @@ class Tc:
         else:
             print('Cannot add')
 
+    # multiplying by a number
+    def __mul__(self, num):
+        if isinstance(num, int) or isinstance(num, float):
+            sec = self.seconds
+            output_sec = sec * num
+            timecode = secs_to_tc(output_sec, self.units, self.fr)
+            output = Tc(timecode, self.units, self.fr)
+            return output
+        else:
+            print('Cannot multiply')
+
     def __str__(self):
         if self.units == 'smpte':
             line = '{:s}, fr: {:.02f} fps'.format(self.timecode, self.fr)
         else:
-            line = '{:s}'.format(self.hmsf)
+            line = '{:s}'.format(self.timecode)
         return line
