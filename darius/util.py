@@ -20,3 +20,13 @@ def secs_to_tc(secs, units, fr=None):
         ff = round((secs_without_whole_hours_minutes - ss) * fr)
         tc = '{:02d}:{:02d}:{:02d}:{:02d}'.format(hh, mm, ss, ff)
     return tc
+
+def object_to_dict(obj):
+    if isinstance(obj, dict):
+        return {key: object_to_dict(value) for key, value in obj.items()}
+    elif hasattr(obj, '__dict__'):
+        return object_to_dict(obj.__dict__)
+    elif isinstance(obj, (list, tuple)):
+        return [object_to_dict(item) for item in obj]
+    else:
+        return obj
