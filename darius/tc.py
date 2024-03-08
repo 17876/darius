@@ -93,11 +93,22 @@ class Tc:
         sec2 = other.seconds
         output_sec = sec1 + sec2
         if self.units == other.units and self.fr == other.fr:
-            hmsf = secs_to_tc(output_sec, 'smpte', self.fr)
-            output = Tc(hmsf, 'smpte', self.fr)
+            timecode = secs_to_tc(output_sec, self.units, self.fr)
+            output = Tc(timecode, self.units, self.fr)
             return output
         else:
             print('Cannot add')
+
+    def __sub__(self, other):
+        sec1 = self.seconds
+        sec2 = other.seconds
+        output_sec = sec1 - sec2
+        if self.units == other.units and self.fr == other.fr:
+            timecode = secs_to_tc(output_sec, self.units, self.fr)
+            output = Tc(timecode, self.units, self.fr)
+            return output
+        else:
+            print('Cannot subtract')
 
     # multiplying by a number
     def __mul__(self, num):
@@ -109,6 +120,21 @@ class Tc:
             return output
         else:
             print('Cannot multiply')
+
+    def __truediv__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            sec = self.seconds
+            output_sec = sec / other
+            timecode = secs_to_tc(output_sec, self.units, self.fr)
+            return Tc(timecode, self.units, self.fr)
+        elif isinstance(other, Tc):
+            sec1 = self.seconds
+            sec2 = other.seconds
+            result = sec1 / sec2
+            return result
+        else:
+            print('Cannot divide')
+
 
     def __str__(self):
         if self.units == 'smpte':

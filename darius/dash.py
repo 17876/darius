@@ -5,21 +5,41 @@ from darius.util import object_to_dict
 class Dash:
     def __init__(self, name, start, end, content=None):
         self.name = name
-        self.start = start # timecode in layer
-        self.end = end # timecode in layer
-        self.content = content # matter
+        self._start = start # timecode in layer
+        self._end = end # timecode in layer
+        self._dur = self._end - self._start # duration
+        self.content = content  # matter
 
-    # def _print(self):
-    #     print('Dash Name: {}'.format(self.name))
-    #     print('Dash Start: {}'.format(self.start))
-    #     print('Dash End: {}'.format(self.end))
-    #     print('Dash Content:')
-    #     print(self.content)
+    @property
+    def dur(self):
+        return self._dur
+
+    @dur.setter
+    def dur(self, val):
+        self._dur = val
+        self._end = self._start + val
+
+    @property
+    def start(self):
+        return self._start
+
+    @dur.setter
+    def start(self, val):
+        self._start = val
+        self._dur = self._end - self._start
+
+    @property
+    def end(self):
+        return self._end
+
+    @dur.setter
+    def end(self, val):
+        self._end = val
+        self._dur = self._end - self._start
 
     def __str__(self):
         return json.dumps(object_to_dict(self), indent=4)
-        # self._print()
-        # return 'Dash Print Done'
+
 
 # class Layer:
 #     def __init__(self, name):

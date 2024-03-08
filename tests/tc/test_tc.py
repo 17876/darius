@@ -124,7 +124,39 @@ class TestTc(unittest.TestCase):
         tc = Tc(timecode, units)
         result = tc * number
         expected = Tc('0:3:00', units)
-        print(result)
+        # print(result)
+        self.assertEqual(result, expected)
+
+    def test_sub(self):
+        tc_human_1 = '0:1:12'
+        tc_human_2 = '0:1:11'
+        units = 'hms'
+        tc_1 = Tc(tc_human_1, units)
+        tc_2 = Tc(tc_human_2, units)
+        result = tc_1 - tc_2
+        # print(result)
+        expected = Tc('0:0:1', units)
+        self.assertEqual(result, expected)
+
+    def test_div1(self):
+        tc_human = '0:1:12'
+        num = 2
+        units = 'hms'
+        tc = Tc(tc_human, units)
+        result = tc / num
+        expected = Tc('0:0:36', units)
+        # print(result)
+        self.assertEqual(result, expected)
+
+    def test_div2(self):
+        tc_human1 = '0:1:12'
+        tc_human2 = '0:0:36'
+        units = 'hms'
+        tc1 = Tc(tc_human1, units)
+        tc2 = Tc(tc_human2, units)
+        result = tc1 / tc2
+        expected = 2
+        # print(result)
         self.assertEqual(result, expected)
 
 
