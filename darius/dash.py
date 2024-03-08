@@ -23,7 +23,7 @@ class Dash:
     def start(self):
         return self._start
 
-    @dur.setter
+    @start.setter
     def start(self, val):
         self._start = val
         self._dur = self._end - self._start
@@ -32,7 +32,7 @@ class Dash:
     def end(self):
         return self._end
 
-    @dur.setter
+    @end.setter
     def end(self, val):
         self._end = val
         self._dur = self._end - self._start
