@@ -2,6 +2,37 @@
 import json
 from darius.util import object_to_dict
 
+
+class Container:
+    def __init__(self, name=None, data=None):
+        self.name = name
+        if data:
+            self.data = data
+        else:
+            self.data = []
+
+    def __getitem__(self, index):
+        if isinstance(index, (int, float)):
+            return self.data[index]
+
+        elif isinstance(index, str):
+            output = []
+            for item in self.data:
+                if hasattr(item, 'name'):
+                    if item.name == index:
+                        output.append(item)
+            if len(output) == 1:
+                return output[0]
+            else:
+                return output
+
+    def append(self, item):
+        self.data.append(item)
+
+    def __str__(self):
+        return json.dumps(object_to_dict(self), indent=4)
+
+
 class Dash:
     def __init__(self, name, start, end, content=None):
         self.name = name
